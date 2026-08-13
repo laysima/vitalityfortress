@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-title: var(--title);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --font-sans: var(--font-poppins);
+}
+
+:root {
+  --bg: #002b38;
+  --fg: #ffffff;
+  --title: #ffffff;
+  --muted: #a6a6a6;
+  --accent: #aea8a8;
+  --accent-dark: #1d2220;
+}
+
+.theme-charcoal {
+  --bg: #1d2521;
+  --fg: #c7d1cc;
+  --title: #f1f3f2;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+}

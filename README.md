@@ -1,14 +1,27 @@
-# Responsive Restaurant Website
-## [Watch it on youtube](https://youtu.be/5RIFrZEjURA)
-### Responsive Restaurant Website
+# VitalityFortress
 
-- Responsive Restaurant Website Design Using HTML CSS & JavaScript
-- Contains animations when scrolling.
-- Smooth scrolling in each section.
-- Includes a dark & light theme.
-- Developed first with the Mobile First methodology, then for desktop.
-- Compatible with all mobile devices and with a beautiful and pleasant user interface.
+A fitness community website, built with [Next.js](https://nextjs.org) (App Router) and [Tailwind CSS](https://tailwindcss.com).
 
-💙 Join the channel to see more videos like this. [Bedimcode](https://www.youtube.com/@Bedimcode)
+Originally a static HTML/CSS/JS site, refurbished into a Next.js app with componentized sections, `next/image` optimization, and a Tailwind-based design system.
 
-![preview img](/preview.png)
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view it.
+
+## Pages
+
+- `/` — home page (hero, about, services, pricing, trainers, app promo, contact CTA)
+- `/contact` — contact form
+- `/login` — login / signup
+
+## Project structure
+
+- `app/` — routes (App Router)
+- `components/` — shared UI (`Header`, `Footer`, `ThemeToggle`, `ScrollTopButton`, `Reveal`)
+- `components/sections/` — home page sections
+- `public/images/` — site imagery
