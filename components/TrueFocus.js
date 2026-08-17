@@ -1,0 +1,103 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import "./TrueFocus.css";
+
+export default function TrueFocus({
+  sentence = "True Focus",
+  separator = " ",
+  manualMode = false,
+  blurAmount = 5,
+  borderColor = "#2f5233",
+  glowColor = "rgba(47, 82, 51, 0.35)",
+  animationDuration = 0.5,
+  pauseBetweenAnimations = 1,
+  className = "",
+}) {
+  const words = sentence.split(separator);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [lastActiveIndex, setLastActiveIndex] = useState(null);
+  const containerRef = useRef(null);
+  const wordRefs = useRef([]);
+  const [focusRect, setFocusRect] = useState({ x: 0, y: 0, width: 0, height: 0 });
+
+  useEffect(() => {
+    if (manualMode) return;
+    const interval = setInterval(
+      () => setCurrentIndex((prev) => (prev + 1) % words.length),
+      (animationDuration + pauseBetweenAnimations) * 1000
+    );
+    return () => clearInterval(interval);
+  }, [manualMode, animationDuration, pauseBetweenAnimations, words.length]);
+
+  useEffect(() => {
+    if (currentIndex === null || currentIndex === -1) return;
+    if (!wordRefs.current[currentIndex] || !containerRef.current) return;
+
+    const parentRect = containerRef.current.getBoundingClientRect();
+    const activeRect = wordRefs.current[currentIndex].getBoundingClientRect();
+
+    setFocusRect({
+      x: activeRect.left - parentRect.left,
+      y: activeRect.top - parentRect.top,
+      width: activeRect.width,
+      height: activeRect.height,
+    });
+  }, [currentIndex, words.length]);
+
+  const handleMouseEnter = (index) => {
+    if (!manualMode) return;
+    setLastActiveIndex(index);
+    setCurrentIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    if (!manualMode) return;
+    setCurrentIndex(lastActiveIndex);
+  };
+
+  return (
+    <div ref={containerRef} className={`focus-container ${className}`}>
+      {words.map((word, index) => {
+        const isActive = index === currentIndex;
+        return (
+          <span
+            key={index}
+            ref={(el) => {
+              wordRefs.current[index] = el;
+            }}
+            className="focus-word"
+            style={{
+              filter: isActive ? "blur(0px)" : `blur(${blurAmount}px)`,
+              opacity: isActive ? 1 : 0.4,
+              transition: `filter ${animationDuration}s ease, opacity ${animationDuration}s ease`,
+            }}
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}
+          >
+            {word}
+          </span>
+        );
+      })}
+
+      <motion.div
+        className="focus-frame"
+        animate={{
+          x: focusRect.x,
+          y: focusRect.y,
+          width: focusRect.width,
+          height: focusRect.height,
+          opacity: currentIndex >= 0 ? 1 : 0,
+        }}
+        transition={{ duration: animationDuration }}
+        style={{ "--border-color": borderColor, "--glow-color": glowColor }}
+      >
+        <span className="corner top-left" />
+        <span className="corner top-right" />
+        <span className="corner bottom-left" />
+        <span className="corner bottom-right" />
+      </motion.div>
+    </div>
+  );
+}

@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BiChevronUp } from "react-icons/bi";
 
 export default function ScrollTopButton() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     function onScroll() {
-      setVisible(window.scrollY >= 560);
+      setVisible(window.scrollY >= 800);
     }
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -22,11 +21,14 @@ export default function ScrollTopButton() {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
       aria-label="Scroll to top"
-      className={`fixed right-4 z-10 flex items-center justify-center rounded-md bg-accent/50 p-1 transition-all hover:bg-accent-dark ${
-        visible ? "bottom-6 visible" : "-bottom-20 invisible"
+      className={`group fixed right-6 z-50 flex items-center gap-2 text-fg transition-all ${
+        visible ? "bottom-8 opacity-100" : "pointer-events-none -bottom-4 opacity-0"
       }`}
     >
-      <BiChevronUp className="text-3xl text-bg" />
+      <span className="text-sm tracking-wide">&uarr;</span>
+      <span className="border-b border-fg/40 pb-0.5 text-xs tracking-wide text-fg/70 transition-colors group-hover:border-accent group-hover:text-accent">
+        Top
+      </span>
     </a>
   );
 }

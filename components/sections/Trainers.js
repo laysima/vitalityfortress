@@ -2,92 +2,69 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { BiLogoFacebook, BiLogoInstagram, BiLogoTwitter, BiLogoYoutube } from "react-icons/bi";
+import Reveal from "@/components/Reveal";
+import TrueFocus from "@/components/TrueFocus";
 
-const pages = [
-  [
-    { name: "Andrew Neil", role: "Web Designer", image: "/images/fit1.jpg" },
-    { name: "Jasmine Carter", role: "UI Designer", image: "/images/fit2.jpg" },
-    { name: "Justin Chung", role: "Web Developer", image: "/images/fit3.jpg" },
-  ],
-  [
-    { name: "Appolo Reef", role: "Web Designer", image: "/images/fit4.jpg" },
-    { name: "Adrina Calvo", role: "UI Designer", image: "/images/fit1.jpg" },
-    { name: "Nicole Lewis", role: "Web Developer", image: "/images/fit2.jpg" },
-  ],
+const trainers = [
+  { name: "Mara Cole", role: "Strength & power", image: "/images/coach-airam.jpg", position: "center" },
+  { name: "Noah James", role: "Boxing & conditioning", image: "/images/coach-thomas.jpg", position: "center" },
+  { name: "Talia Reed", role: "Mobility & performance", image: "/images/coach-joshua.jpg", position: "center" },
+  { name: "Eli Mercer", role: "Olympic lifting", image: "/images/about-strength.jpg", position: "60% center" },
 ];
 
-function TrainerCard({ trainer }) {
-  return (
-    <div className="w-full max-w-70 rounded-xl bg-white p-7 text-center text-[#1d2220] shadow-[0_5px_10px_rgba(0,0,0,0.25)] transition-transform hover:-translate-y-3">
-      <div className="mx-auto mb-3 h-32 w-32 rounded-full bg-[#1d2220] p-[3px]">
-        <Image
-          src={trainer.image}
-          alt={trainer.name}
-          width={130}
-          height={130}
-          className="h-full w-full rounded-full border-2 border-white object-cover"
-        />
-      </div>
-      <div className="text-xl font-medium">{trainer.name}</div>
-      <div className="text-lg text-[#1d2220]">{trainer.role}</div>
-      <div className="mt-3 flex justify-center gap-2">
-        {[BiLogoFacebook, BiLogoTwitter, BiLogoInstagram, BiLogoYoutube].map((Icon, i) => (
-          <a
-            key={i}
-            href="#"
-            className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-transparent bg-[#1d2220] text-white transition-colors hover:border-[#1d2220] hover:bg-white hover:text-[#1d2220]"
-          >
-            <Icon />
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function Trainers() {
-  const [page, setPage] = useState(0);
+  const [active, setActive] = useState(null);
 
   return (
-    <section id="menu" className="mx-auto max-w-5xl px-4 py-20 md:py-32">
-      <span className="mb-1 block text-center font-medium text-accent">
-        Special
-      </span>
-      <h2 className="mb-10 text-center text-2xl font-semibold text-title md:text-3xl">
-        Train with experts
-      </h2>
+    <section id="trainers" className="bg-surface py-28 md:py-40">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <div className="grid gap-10 md:grid-cols-[0.55fr_1.25fr] md:gap-20">
+          <Reveal className="text-xs font-semibold tracking-[0.18em] text-accent uppercase">
+            04 / Coaches
+          </Reveal>
+          <Reveal className="max-w-4xl">
+            <TrueFocus
+              sentence="Coaching that sees the details."
+              manualMode={false}
+              blurAmount={3}
+              borderColor="#9bea63"
+              glowColor="rgba(155, 234, 99, 0.24)"
+              animationDuration={0.55}
+              pauseBetweenAnimations={0.9}
+              className="text-4xl leading-[1.08] font-semibold tracking-[-0.045em] text-fg sm:text-5xl md:text-7xl"
+            />
+          </Reveal>
+        </div>
 
-      <div className="overflow-hidden">
         <div
-          className="flex transition-transform duration-700 ease-out"
-          style={{ transform: `translateX(-${page * 100}%)` }}
+          className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          onMouseLeave={() => setActive(null)}
         >
-          {pages.map((group, i) => (
-            <div
-              key={i}
-              className="flex w-full shrink-0 flex-wrap justify-center gap-6 px-1"
-            >
-              {group.map((trainer) => (
-                <TrainerCard key={trainer.name} trainer={trainer} />
-              ))}
-            </div>
+          {trainers.map((trainer, index) => (
+            <Reveal key={trainer.name} delay={index * 0.07}>
+              <article
+                onMouseEnter={() => setActive(index)}
+                className={`group relative h-115 overflow-hidden rounded-3xl border border-white/10 bg-bg transition-all duration-500 md:h-130 ${
+                  active !== null && active !== index ? "scale-[0.985] opacity-35" : "opacity-100"
+                }`}
+              >
+                <Image
+                  src={trainer.image}
+                  alt={`${trainer.name}, ${trainer.role} coach`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="editorial-image object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+                  style={{ objectPosition: trainer.position }}
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-bg via-transparent to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <p className="text-lg font-semibold text-white">{trainer.name}</p>
+                  <p className="mt-1 text-xs tracking-[0.1em] text-accent uppercase">{trainer.role}</p>
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
-      </div>
-
-      <div className="mt-8 flex justify-center gap-2">
-        {pages.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={`Show trainers page ${i + 1}`}
-            onClick={() => setPage(i)}
-            className={`h-3.5 cursor-pointer rounded-full bg-white transition-all ${
-              page === i ? "w-9" : "w-3.5"
-            }`}
-          />
-        ))}
       </div>
     </section>
   );

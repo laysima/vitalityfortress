@@ -4,114 +4,111 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const inputClasses =
-  "h-14 w-full rounded-md border border-neutral-300 px-4 text-sm outline-none focus:shadow-[0_1px_0_rgba(0,0,0,0.2)]";
+const fieldClasses =
+  "peer w-full border-0 border-b border-fg/25 bg-transparent py-3 text-fg outline-none focus:border-accent";
+const labelClasses =
+  "pointer-events-none absolute top-3 left-0 text-fg/40 transition-all duration-300 peer-focus:-translate-y-5 peer-focus:text-xs peer-focus:text-accent peer-not-placeholder-shown:-translate-y-5 peer-not-placeholder-shown:text-xs";
 
 export default function LoginPage() {
   const [mode, setMode] = useState("login");
 
   return (
     <div className="relative min-h-screen">
-      <Image
-        src="/images/gym.png"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-black/55" />
+      <div className="absolute inset-0 mx-auto max-w-[1920px]">
+        <Image
+          src="/images/gym-floor-wide.jpg"
+          alt=""
+          fill
+          priority
+          sizes="1920px"
+          quality={92}
+          className="editorial-image object-cover"
+        />
+        <div className="absolute inset-0 bg-bg/88" />
+      </div>
 
-      <div className="absolute top-[5%] left-[5%] z-10">
+      <div className="absolute top-8 left-6 z-10 md:top-10 md:left-10">
         <Link href="/">
           <Image
             src="/images/vitalityfortressmv.png"
             alt="VitalityFortress"
             width={160}
             height={70}
-            className="h-17.5 w-auto"
+            className="h-9 w-auto opacity-95"
           />
         </Link>
       </div>
 
-      <div className="relative z-10 flex min-h-screen items-center justify-center px-4">
-        <div className="w-full max-w-110 rounded-lg bg-white p-8 shadow-[0_5px_10px_rgba(0,0,0,0.3)]">
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-6">
+        <div className="w-full max-w-sm">
+          <div className="mb-10 flex gap-8">
+            <button
+              type="button"
+              onClick={() => setMode("login")}
+              className={`font-display text-2xl italic transition-colors ${
+                mode === "login" ? "text-accent" : "text-fg/30"
+              }`}
+            >
+              Login
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode("signup")}
+              className={`font-display text-2xl italic transition-colors ${
+                mode === "signup" ? "text-accent" : "text-fg/30"
+              }`}
+            >
+              Signup
+            </button>
+          </div>
+
           {mode === "login" ? (
-            <>
-              <h1 className="mb-6 text-center text-lg font-medium text-[#1d2220]">
+            <form className="space-y-8">
+              <div className="relative">
+                <input type="email" required placeholder=" " className={fieldClasses} />
+                <label className={labelClasses}>Email</label>
+              </div>
+              <div className="relative">
+                <input type="password" required placeholder=" " className={fieldClasses} />
+                <label className={labelClasses}>Password</label>
+              </div>
+              <a href="#" className="block text-sm text-fg/40 hover:text-accent">
+                Forgot password?
+              </a>
+              <button
+                type="button"
+                className="group mt-2 inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 font-medium text-accent-fg transition-transform hover:scale-105"
+              >
                 Login
-              </h1>
-              <form className="space-y-5">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className={inputClasses}
-                />
-                <input
-                  type="password"
-                  placeholder="Enter your password"
-                  className={inputClasses}
-                />
-                <a href="#" className="block text-sm text-[#1d2220] hover:underline">
-                  Forgot password?
-                </a>
-                <button
-                  type="button"
-                  className="mt-2 h-13 w-full cursor-pointer rounded-md bg-[#1d2220] text-lg font-medium tracking-wide text-white transition-colors hover:bg-black"
-                >
-                  Login
-                </button>
-              </form>
-              <p className="mt-6 text-center text-sm text-[#1d2220]">
-                Don&apos;t have an account?{" "}
-                <button
-                  type="button"
-                  onClick={() => setMode("signup")}
-                  className="cursor-pointer text-blue-600 hover:underline"
-                >
-                  Signup
-                </button>
-              </p>
-            </>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </button>
+            </form>
           ) : (
-            <>
-              <h1 className="mb-6 text-center text-lg font-medium text-[#1d2220]">
+            <form className="space-y-8">
+              <div className="relative">
+                <input type="email" required placeholder=" " className={fieldClasses} />
+                <label className={labelClasses}>Email</label>
+              </div>
+              <div className="relative">
+                <input type="password" required placeholder=" " className={fieldClasses} />
+                <label className={labelClasses}>Create a password</label>
+              </div>
+              <div className="relative">
+                <input type="password" required placeholder=" " className={fieldClasses} />
+                <label className={labelClasses}>Confirm password</label>
+              </div>
+              <button
+                type="button"
+                className="group mt-2 inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 font-medium text-accent-fg transition-transform hover:scale-105"
+              >
                 Signup
-              </h1>
-              <form className="space-y-5">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className={inputClasses}
-                />
-                <input
-                  type="password"
-                  placeholder="Create a password"
-                  className={inputClasses}
-                />
-                <input
-                  type="password"
-                  placeholder="Confirm your password"
-                  className={inputClasses}
-                />
-                <button
-                  type="button"
-                  className="mt-2 h-13 w-full cursor-pointer rounded-md bg-[#1d2220] text-lg font-medium tracking-wide text-white transition-colors hover:bg-black"
-                >
-                  Signup
-                </button>
-              </form>
-              <p className="mt-6 text-center text-sm text-[#1d2220]">
-                Already have an account?{" "}
-                <button
-                  type="button"
-                  onClick={() => setMode("login")}
-                  className="cursor-pointer text-blue-600 hover:underline"
-                >
-                  Login
-                </button>
-              </p>
-            </>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </button>
+            </form>
           )}
         </div>
       </div>
