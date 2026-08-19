@@ -4,7 +4,6 @@ import SpotlightCard from "@/components/SpotlightCard";
 
 const services = [
   {
-    number: "01",
     eyebrow: "Build",
     title: "Strength training",
     description:
@@ -13,7 +12,6 @@ const services = [
     className: "md:col-span-2 md:min-h-145",
   },
   {
-    number: "02",
     eyebrow: "Refine",
     title: "Expert coaching",
     description:
@@ -22,7 +20,6 @@ const services = [
     className: "md:min-h-145",
   },
   {
-    number: "03",
     eyebrow: "Measure",
     title: "Progress that shows",
     description:
@@ -38,7 +35,7 @@ export default function Services() {
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div className="grid gap-10 md:grid-cols-[0.55fr_1.25fr] md:gap-20">
           <Reveal className="text-xs font-semibold tracking-[0.18em] text-accent uppercase">
-            02 / Training
+            Training
           </Reveal>
           <Reveal as="h2" className="max-w-4xl text-4xl leading-[1.03] font-semibold tracking-[-0.045em] sm:text-5xl md:text-7xl">
             Everything you need. Nothing you don&apos;t.
@@ -60,9 +57,8 @@ export default function Services() {
                 />
                 <div className="absolute inset-0 -z-0 bg-linear-to-t from-bg via-bg/28 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 z-10 p-7 md:p-9">
-                  <div className="mb-5 flex items-center justify-between border-b border-white/16 pb-4 text-[0.62rem] font-semibold tracking-[0.18em] uppercase">
+                  <div className="mb-5 border-b border-white/16 pb-4 text-[0.62rem] font-semibold tracking-[0.18em] uppercase">
                     <span className="text-accent">{service.eyebrow}</span>
-                    <span className="text-white/45">{service.number}</span>
                   </div>
                   <h3 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
                     {service.title}

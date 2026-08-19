@@ -18,7 +18,7 @@ export default function Hero() {
       <div className="relative mx-auto grid min-h-[calc(100vh-6rem)] max-w-7xl items-end gap-12 px-6 pt-32 pb-12 md:px-10 lg:grid-cols-[0.92fr_1.2fr] lg:gap-8 lg:pt-36">
         <div className="relative z-10 pb-4 lg:pb-14">
           <p className="mb-6 flex items-center gap-3 text-[0.68rem] font-semibold tracking-[0.24em] text-accent uppercase">
-            <span className="h-px w-9 bg-accent" />
+            <span className=" bg-accent" />
             Training for real life
           </p>
 
@@ -64,11 +64,10 @@ export default function Hero() {
           <div className="absolute top-6 right-6 rounded-full border border-white/15 bg-bg/30 px-4 py-2 text-[0.62rem] tracking-[0.18em] text-white/70 uppercase backdrop-blur-md">
             Since 2019 · Open daily
           </div>
-          <div className="absolute right-6 bottom-6 left-6 flex items-end justify-between border-t border-white/20 pt-5 text-white md:right-8 md:bottom-8 md:left-8">
+          <div className="absolute right-6 bottom-6 left-6 border-t border-white/20 pt-5 text-white md:right-8 md:bottom-8 md:left-8">
             <p className="max-w-52 text-sm leading-6 text-white/72">
               Strength is a practice. Build yours with us.
             </p>
-            <p className="font-display text-2xl text-accent italic">01</p>
           </div>
         </div>
       </div>

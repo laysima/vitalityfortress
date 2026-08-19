@@ -20,7 +20,7 @@ export default function Trainers() {
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div className="grid gap-10 md:grid-cols-[0.55fr_1.25fr] md:gap-20">
           <Reveal className="text-xs font-semibold tracking-[0.18em] text-accent uppercase">
-            04 / Coaches
+            Coaches
           </Reveal>
           <Reveal className="max-w-4xl">
             <TrueFocus

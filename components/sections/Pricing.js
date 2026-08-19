@@ -30,7 +30,7 @@ export default function Pricing() {
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div className="grid gap-10 md:grid-cols-[0.55fr_1.25fr] md:gap-20">
           <Reveal className="text-xs font-semibold tracking-[0.18em] text-accent uppercase">
-            03 / Membership
+            Membership
           </Reveal>
           <div>
             <Reveal as="h2" className="max-w-4xl text-4xl leading-[1.03] font-semibold tracking-[-0.045em] sm:text-5xl md:text-7xl">
@@ -53,12 +53,9 @@ export default function Pricing() {
                     : "border-white/10 bg-surface"
                 }`}
               >
-                <div className="relative z-10 flex items-start justify-between">
+                <div className="relative z-10">
                   <p className="text-xs font-semibold tracking-[0.16em] text-fg/70 uppercase">
                     {plan.name}
-                  </p>
-                  <p className="text-[0.62rem] tracking-[0.15em] text-muted uppercase">
-                    0{index + 1}
                   </p>
                 </div>
 
