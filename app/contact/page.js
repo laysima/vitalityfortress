@@ -40,10 +40,10 @@ export default function ContactPage() {
       <div className="absolute top-8 left-6 z-10 md:top-10 md:left-10">
         <Link href="/">
           <Image
-            src="/images/vitalityfortressmv.png"
+            src="/images/vflogo.svg"
             alt="VitalityFortress"
-            width={160}
-            height={70}
+            width={300}
+            height={100}
             className="h-9 w-auto opacity-95"
           />
         </Link>

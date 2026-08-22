@@ -8,11 +8,11 @@ export default function Footer() {
         <div className="grid gap-14 md:grid-cols-[1.3fr_0.7fr_0.7fr]">
           <div>
             <Image
-              src="/images/vitalityfortressmv.png"
+              src="/images/vflogo.svg"
               alt="VitalityFortress"
-              width={210}
-              height={90}
-              className="h-12 w-auto"
+              width={300}
+              height={100}
+              className="h-10 w-auto"
             />
             <p className="mt-6 max-w-sm text-sm leading-7 text-fg/48">
               A training space for people who want to feel stronger, move

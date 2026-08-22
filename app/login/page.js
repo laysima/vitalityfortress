@@ -13,15 +13,15 @@ function Brand() {
     <Link
       href="/"
       aria-label="VitalityFortress home"
-      className="group flex w-fit items-center gap-3"
+      className="flex w-fit items-center transition-transform duration-300 hover:scale-105"
     >
-      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-sm font-black tracking-[-0.08em] text-accent-fg shadow-[0_0_28px_rgba(155,234,99,0.2)] transition-transform duration-300 group-hover:-rotate-3">
-        VF
-      </span>
-      <span className="flex flex-col text-[0.68rem] leading-[0.92] font-bold tracking-[0.18em] text-fg uppercase">
-        <span>Vitality</span>
-        <span className="mt-1 text-fg/55 group-hover:text-accent">Fortress</span>
-      </span>
+      <Image
+        src="/images/vflogo.svg"
+        alt="VitalityFortress"
+        width={300}
+        height={100}
+        className="h-9 w-auto"
+      />
     </Link>
   );
 }
