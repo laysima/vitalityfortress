@@ -4,10 +4,10 @@ const nextConfig = {
     root: import.meta.dirname,
   },
   images: {
-    dangerouslyAllowSVG: true,
-    contentDispositionType: "attachment",
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    qualities: [75, 90],
   },
+  // SVG logos are served as static files (`unoptimized` on the Image), so the
+  // image optimizer never needs to process SVG.
 };
 
 export default nextConfig;

@@ -1,31 +1,30 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ScrollTopButton from "@/components/ScrollTopButton";
-import Hero from "@/components/sections/Hero";
-import Statement from "@/components/sections/Statement";
-import About from "@/components/sections/About";
-import Services from "@/components/sections/Services";
-import QuoteBanner from "@/components/sections/QuoteBanner";
-import Pricing from "@/components/sections/Pricing";
-import Trainers from "@/components/sections/Trainers";
-import ContactCta from "@/components/sections/ContactCta";
+import AppShowcase from "@/components/marketing/AppShowcase";
+import Coaches from "@/components/marketing/Coaches";
+import Disciplines from "@/components/marketing/Disciplines";
+import Hero from "@/components/marketing/Hero";
+import Membership from "@/components/marketing/Membership";
+import Method from "@/components/marketing/Method";
+import RevealRoot from "@/components/marketing/RevealRoot";
+import SiteFooter, { FinalCta } from "@/components/marketing/SiteFooter";
+import SiteHeader from "@/components/marketing/SiteHeader";
+import Timetable from "@/components/marketing/Timetable";
 
 export default function Home() {
   return (
     <>
-      <ScrollTopButton />
-      <Header />
+      <RevealRoot />
+      <SiteHeader />
       <main>
         <Hero />
-        <Statement />
-        <About />
-        <Services />
-        <QuoteBanner />
-        <Pricing />
-        <Trainers />
-        <ContactCta />
+        <Method />
+        <AppShowcase />
+        <Disciplines />
+        <Timetable />
+        <Coaches />
+        <Membership />
+        <FinalCta />
       </main>
-      <Footer />
+      <SiteFooter />
     </>
   );
 }

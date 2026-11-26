@@ -9,3 +9,4 @@ The refreshed photography is sourced from Pexels and used under the Pexels licen
 - `coach-thomas.jpg` — [Thomas Ronveaux, photo 13951611](https://www.pexels.com/photo/boxer-posing-at-gym-13951611/)
 - `coach-joshua.jpg` — [Joshua Brown, photo 13197535](https://www.pexels.com/photo/portrait-of-a-woman-with-a-dumbbell-13197535/)
 - `coach-mikhail.jpg` — [Mikhail Nilov, photo 6739930](https://www.pexels.com/photo/woman-with-blonde-hair-and-active-wear-6739930/)
+- `hero-sprinter-hd.png` — background-removed, upscaled and sharpened cut-out of [Pexels photo 936094, "Man wearing white sweater and black shorts about to run"](https://www.pexels.com/photo/man-wearing-white-sweater-and-black-shorts-about-to-run-936094/)

@@ -1,114 +1,284 @@
 @import "tailwindcss";
 
+/* ───────────────────────── Design tokens ───────────────────────── */
+
 @theme inline {
-  --color-bg: #090c0a;
-  --color-fg: #f1f5ed;
-  --color-muted: #9da89d;
-  --color-accent: #9bea63;
-  --color-accent-fg: #0b1609;
-  --color-surface: #111612;
-  --color-surface-2: #171d18;
-  --color-kelly: #c5f5a6;
-  --color-spearmint: #7fd653;
-  --font-sans: var(--font-poppins);
-  --font-display: var(--font-fraunces);
+  /* Paper & ink — light athletic editorial */
+  --color-paper: #f3efe6;
+  --color-paper-2: #eae5d9;
+  --color-card: #fbf9f4;
+  --color-ink: #151412;
+  --color-ink-2: #3a3833;
+  --color-muted: #6b675e;
+  --color-line: rgb(21 20 18 / 0.12);
+  --color-line-strong: rgb(21 20 18 / 0.22);
+
+  /* One signal colour. Use `signal` for fills and big display type,
+     `signal-deep` for small text on paper (4.8:1). Text on a signal fill is ink. */
+  --color-signal: #ff4b1f;
+  --color-signal-deep: #c2340f;
+  --color-signal-soft: #ffe2d6;
+  --color-good: #1f6f47;
+  --color-good-soft: #dcefe3;
+
+  --font-sans: var(--font-archivo);
+  --font-serif: var(--font-instrument);
+
+  --radius-card: 1.25rem;
+
+  /* Motion tokens — every curve and duration in the app comes from here. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-press: 160ms;
+  --duration-ui: 200ms;
+  --duration-drawer: 400ms;
+
+  --animate-enter: enter var(--duration-ui) var(--ease-out) both;
+}
+
+:root {
+  color-scheme: light;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
   scroll-behavior: smooth;
+  background: var(--color-paper);
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-fg);
+  background: var(--color-paper);
+  color: var(--color-ink);
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: #9bea63;
-  color: #0b1609;
+  background: var(--color-signal);
+  color: var(--color-ink);
 }
 
-.duotone {
-  filter: saturate(0.82) contrast(1.08) brightness(0.82);
+/* Taps should never wait on double-tap zoom. */
+a,
+button,
+input,
+select,
+textarea,
+label,
+summary {
+  touch-action: manipulation;
 }
 
-.editorial-image {
-  filter: saturate(0.78) contrast(1.08);
+/* iOS zooms the page when an input's font is under 16px. Lives in the base layer
+   so text-size utilities (e.g. a big display input) still win. */
+@layer base {
+  input,
+  select,
+  textarea {
+    font-size: max(16px, 1em);
+  }
 }
 
-.noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
 }
 
-.spotlight-card {
-  --spotlight-x: 50%;
-  --spotlight-y: 50%;
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
+/* ───────────────────────── Type ───────────────────────── */
+
+/* Condensed, heavy display type — Archivo's width axis does the work. */
+.display {
+  font-family: var(--font-archivo);
+  font-stretch: 68%;
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 
-.spotlight-card::after {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  content: "";
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ───────────────────────── Interaction ───────────────────────── */
+
+/* Press feedback: subtle, fast, interruptible (a transition, not a keyframe). */
+.press {
+  transition-property: transform, background-color, color, border-color, box-shadow;
+  transition-duration: var(--duration-press);
+  transition-timing-function: var(--ease-out);
+}
+
+.press:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Entrance for elements that mount (logger rows, toasts in-page, banners). */
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Marketing scroll reveal, driven by CSS so it never blocks the main thread.
+   Elements are only hidden once JS confirms it can reveal them. */
+.js-reveal [data-reveal] {
   opacity: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    420px circle at var(--spotlight-x) var(--spotlight-y),
-    rgb(155 234 99 / 0.16),
-    transparent 48%
-  );
-  transition: opacity 300ms ease;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
 }
 
-.spotlight-card:hover::after {
+.js-reveal [data-reveal].is-visible {
   opacity: 1;
+  transform: none;
 }
 
-.outline-text {
-  color: transparent;
-  -webkit-text-stroke: 1px rgb(241 245 237 / 0.28);
+/* Hero headline: each line rises out of its own mask, once, on load.
+   Marketing motion is allowed to be slower; it never blocks interaction. */
+.rise-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.04em;
 }
+
+.rise-line > span {
+  display: block;
+  animation: rise 900ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 80ms + 80ms);
+}
+
+.hero-fade {
+  animation: fade 700ms var(--ease-out) both;
+  animation-delay: 420ms;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(102%);
+  }
+}
+
+/* Hero composition: panel wipes up, athlete settles in, then the headline rises. */
+.hero-panel {
+  animation: panel-in 900ms var(--ease-out) both;
+}
+
+.hero-athlete {
+  animation: athlete-in 900ms var(--ease-out) 150ms both;
+}
+
+@keyframes panel-in {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes athlete-in {
+  from {
+    opacity: 0;
+    transform: translateY(4%);
+  }
+}
+
+/* Exercise demo: hold each position, then a short crossfade. Opacity only. */
+.demo-loop {
+  animation: demo-flip 2600ms var(--ease-in-out) infinite;
+}
+
+@keyframes demo-flip {
+  0%,
+  38% {
+    opacity: 0;
+  }
+  50%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Image frames: a slow, gentle zoom on hover only where a real pointer exists. */
+@media (hover: hover) and (pointer: fine) {
+  .zoom-frame img {
+    transition: transform 700ms var(--ease-out);
+  }
+
+  .zoom-frame:hover img {
+    transform: scale(1.03);
+  }
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+.safe-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ───────────────────────── Reduced motion ───────────────────────── */
+/* Fewer and gentler, not zero: keep opacity and colour feedback, drop movement. */
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
+  .press:active:not(:disabled) {
+    transform: none;
   }
-}
 
-@keyframes marquee {
-  from {
-    transform: translateX(0);
+  .js-reveal [data-reveal] {
+    transform: none;
+    transition: opacity 300ms ease;
   }
-  to {
-    transform: translateX(-50%);
-  }
-}
 
-.animate-marquee-slow {
-  animation: marquee 50s linear infinite;
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
+  @keyframes enter {
+    from {
+      opacity: 0;
+    }
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-.animate-spin-slow {
-  animation: spin-slow 16s linear infinite;
+  .demo-loop {
+    animation: none;
+    opacity: 0;
+  }
+
+  .rise-line > span,
+  .hero-panel,
+  .hero-athlete {
+    animation-name: fade;
+    animation-duration: 400ms;
+  }
 }
